@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright Adrien Duroy (2015)
+ 
+ad.duroy@gmail.com
+
+This file is part of SwisiDad.
+SwisiDad is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+SwisiDad is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<project name="SwisiDad" default="dist" >
+	<property name="app.name" value="swisidad" />
+	<property name="app.version" value="0.0" />
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="jar.dir" value="${build.dir}/jar" />
+	<property name="doc.dir" value="doc/javadoc" />
+	<property name="dist.dir" value="dist" />
+	
+	<target name="init" >
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" >
+			<include name="**/*.java" />
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile" description="Crée l'archive JAR de Apyrinthe" >
+		<jar destfile="${jar.dir}/${app.name}.jar" basedir="${classes.dir}" >
+			<manifest>
+				<attribute name="Implementation-Title" value="${app.name}"/>
+				<attribute name="Implementation-Version" value="${app.version}"/>
+			</manifest>
+			<include name="**/*.class" />
+		</jar>
+	</target>
+	
+	<target name="doc">
+		<delete dir="${doc.dir}" />
+		<mkdir dir="${doc.dir}" />
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}" />
+	</target>
+
+	<target name="clean" description="Supprime les fichiers du répertoire de construction" >
+		<delete dir="${classes.dir}" />
+		<delete dir="${jar.dir}" />
+	</target>
+
+	<target name="clean_dist" description="Supprime le contenu du répertoire de distribution" >
+		<delete dir="${dist.dir}" />
+	</target>
+	
+	<target name="dist" depends="clean_dist,jar" description="Regroupe les éléments pour la distribution du projet.">
+		<copy file="${jar.dir}/${app.name}.jar" todir="${dist.dir}" />
+		<copy todir="${dist.dir}/licence" >
+			<fileset dir="licence" />
+		</copy>
+		<copy file="README.md" todir="${dist.dir}" />
+	</target>
+	
+	<target name="zip_dist" depends="dist" description="Crée une archive de distribution.">
+		<zip destfile="${dist.dir}/${app.name}_${app.version}.zip" basedir="${dist.dir}">
+			<include name="**/*" />
+			<exclude name="${app.name}.zip" />
+		</zip>
+	</target>
+</project>

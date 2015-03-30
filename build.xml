@@ -40,7 +40,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 		</javac>
 	</target>
 
-	<target name="jar" depends="compile" description="Crée l'archive JAR de Apyrinthe" >
+	<target name="jar" depends="compile" description="Crée l'archive JAR" >
 		<jar destfile="${jar.dir}/${app.name}.jar" basedir="${classes.dir}" >
 			<manifest>
 				<attribute name="Implementation-Title" value="${app.name}"/>

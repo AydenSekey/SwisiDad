@@ -20,6 +20,8 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
 package swisidad.component;
 
+import swisidad.listener.SwisiMouseListener;
+
 /**
  * Interface pour les composants draggable. 
  */
@@ -45,4 +47,11 @@ public interface SwisiDraggable extends SwisiToggleVisibiliteComponent, SwisiCom
 	 * @param y l'ordonnée de la position cible
 	 */
 	public void moveTo(int x, int y);
+	
+	/**
+	 * Ajoute un écouteur sur les événements de souris.
+	 * 
+	 * @param listener l'écouteur d'événement de souris.
+	 */
+	public void addMouseListener(SwisiMouseListener listener);
 }

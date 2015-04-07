@@ -23,7 +23,7 @@ package swisidad.component;
 /**
  * Interface pour les composants draggable. 
  */
-public interface SwisiDraggable extends SwisiToggleVisibiliteComponent {
+public interface SwisiDraggable extends SwisiToggleVisibiliteComponent, SwisiComponent {
 	/**
 	 * Crée une copie graphique de l'élément draggué.
 	 * 

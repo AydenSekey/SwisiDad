@@ -45,4 +45,18 @@ public interface SwisiComponent {
 	 * @return la position sur l'écran du composant.
 	 */
 	public Coordonate getPositionOnScreen();
+	
+	/**
+	 * Donne la largeur du composant.
+	 * 
+	 * @return la largeur.
+	 */
+	public int getWidth();
+	
+	/**
+	 * Donne la hauteur du composant.
+	 * 
+	 * @return la hauteur.
+	 */
+	public int getHeight();
 }

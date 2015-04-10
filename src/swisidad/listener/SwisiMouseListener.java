@@ -36,7 +36,14 @@ public interface SwisiMouseListener {
 	/**
 	 * Méthode appelée lorsque le bouton de la souris permettant d'effectuer le drag and drop est relaché.
 	 * 
-	 * @param event informations l'événement du bouton relaché.
+	 * @param event informations sur l'événement du bouton relaché.
 	 */
 	public void mouseRelease(SwisiMouseEvent event);
+	
+	/**
+	 * Méthode appeléee lorsque la souris est déplacée pendant que le bouton permettant d'effectuer le drag and drop est pressé.
+	 * 
+	 * @param event informations sur l'événement de mouvement.
+	 */
+	public void mouseDragged(SwisiMouseEvent event);
 }

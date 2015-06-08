@@ -92,13 +92,21 @@ public class Coordonate {
 	public void setX(int x) {
 		this.x = x;
 	}
+	
+	/**
+	 * Modifie l'abscisse et l'ordonnée de la coordonnée.
+	 * @param x la nouvelle abcisse
+	 * @param y la nouvelle ordonnée
+	 */
+	public void setXY(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 32;
-		int result = 1;
-		result = prime * result + x;
-		result = prime * result + y;
+		int result = x;
+		result = 256 * result + y;
 		return result;
 	}
 
@@ -114,13 +122,7 @@ public class Coordonate {
 			return false;
 		}
 		Coordonate other = (Coordonate) obj;
-		if (x != other.x) {
-			return false;
-		}
-		if (y != other.y) {
-			return false;
-		}
-		return true;
+		return  x == other.x && y == other.y;
 	}
 	
 	@Override

@@ -37,14 +37,14 @@ public interface SwisiComponent {
 	 * 
 	 * @return la position de la souris.
 	 */
-	public Coordonate getMousePosition();
+	public Coordonate getMouseSwisiCoordonate();
 	
 	/**
 	 * Donne la position du coin suppérieur gauche du composant par rapport à celui de l'écran.
 	 * 
 	 * @return la position sur l'écran du composant.
 	 */
-	public Coordonate getPositionOnScreen();
+	public Coordonate getSwisiPositionOnScreen();
 	
 	/**
 	 * Donne la largeur du composant.

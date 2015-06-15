@@ -23,7 +23,7 @@ package swisidad;
 /**
  * Représentation des coordonnées dans SwisiDad.
  */
-public class Coordonate {
+public class Coordinate {
 	private int x;
 	private int y;
 	
@@ -34,14 +34,14 @@ public class Coordonate {
 	 * @param coordonate la coordonée cible
 	 * @return les coordonées de la cible relative à l'origine.
 	 */
-	public static Coordonate relative(Coordonate origin, Coordonate coordonate) {
-		return new Coordonate(coordonate.x - origin.x, coordonate.y - origin.y);
+	public static Coordinate relative(Coordinate origin, Coordinate coordonate) {
+		return new Coordinate(coordonate.x - origin.x, coordonate.y - origin.y);
 	}
 
 	/**
 	 * Crée une coordonnée (0;0).
 	 */
-	public Coordonate() {
+	public Coordinate() {
 		this(0, 0);
 	}
 	
@@ -51,7 +51,7 @@ public class Coordonate {
 	 * @param x l'abscisse
 	 * @param y l'ordonnée
 	 */
-	public Coordonate(int x, int y) {
+	public Coordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -118,10 +118,10 @@ public class Coordonate {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof Coordonate)) {
+		if (!(obj instanceof Coordinate)) {
 			return false;
 		}
-		Coordonate other = (Coordonate) obj;
+		Coordinate other = (Coordinate) obj;
 		return  x == other.x && y == other.y;
 	}
 	

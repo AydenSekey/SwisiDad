@@ -20,7 +20,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
 package swisidad.component;
 
-import swisidad.Coordonate;
+import swisidad.Coordinate;
 
 /**
  * Interface commune à tous les composants SwisiDad.
@@ -37,14 +37,14 @@ public interface SwisiComponent {
 	 * 
 	 * @return la position de la souris.
 	 */
-	public Coordonate getMouseSwisiCoordonate();
+	public Coordinate getMouseSwisiCoordonate();
 	
 	/**
 	 * Donne la position du coin suppérieur gauche du composant par rapport à celui de l'écran.
 	 * 
 	 * @return la position sur l'écran du composant.
 	 */
-	public Coordonate getSwisiPositionOnScreen();
+	public Coordinate getSwisiPositionOnScreen();
 	
 	/**
 	 * Donne la largeur du composant.

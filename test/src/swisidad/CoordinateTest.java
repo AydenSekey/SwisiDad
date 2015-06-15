@@ -24,12 +24,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class CoordonateTest {
+public class CoordinateTest {
 
 	@Test
 	public void testEquals() {
-		Coordonate c1 = new Coordonate(1, 2);
-		Coordonate c2 = new Coordonate(4, 3);
+		Coordinate c1 = new Coordinate(1, 2);
+		Coordinate c2 = new Coordinate(4, 3);
 		
 		assertEquals("L'identité n'implique pas l'égalité !", c1, c1);
 		assertNotEquals("Inegalité incorrecte", c1, c2);
@@ -43,29 +43,29 @@ public class CoordonateTest {
 	
 	@Test
 	public void testHashCode() {
-		Coordonate c1 = new Coordonate(1, 2);
-		Coordonate c2 = new Coordonate(1, 2);
+		Coordinate c1 = new Coordinate(1, 2);
+		Coordinate c2 = new Coordinate(1, 2);
 		
 		assertEquals("hashCodes de deux objets égaux doivent être égaux", c1.hashCode(), c2.hashCode());
 	}
 	
 	@Test
 	public void testRelative() {
-		Coordonate cOrigin = new Coordonate();
-		Coordonate c1 = new Coordonate(1, 2);
-		Coordonate c2 = new Coordonate(3, 4);
+		Coordinate cOrigin = new Coordinate();
+		Coordinate c1 = new Coordinate(1, 2);
+		Coordinate c2 = new Coordinate(3, 4);
 	
-		Coordonate result = Coordonate.relative(c1, c1);
+		Coordinate result = Coordinate.relative(c1, c1);
 		assertEquals("relative d'une coordonée à elle-même incorrecte", cOrigin, result);
 
-		result = Coordonate.relative(cOrigin, c1);
+		result = Coordinate.relative(cOrigin, c1);
 		assertEquals("relative d'une coordonée à l'origine incorrecte", c1, result);
 
-		result = Coordonate.relative(c1, cOrigin);
-		assertEquals("relative de l'origine à une coordonée incorrecte", new Coordonate(-1, -2), result);
+		result = Coordinate.relative(c1, cOrigin);
+		assertEquals("relative de l'origine à une coordonée incorrecte", new Coordinate(-1, -2), result);
 
-		result = Coordonate.relative(c1, c2);
-		assertEquals("relative de deux coordonnées différentes incorrecte", new Coordonate(2, 2), result);
+		result = Coordinate.relative(c1, c2);
+		assertEquals("relative de deux coordonnées différentes incorrecte", new Coordinate(2, 2), result);
 	}
 
 }

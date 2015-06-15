@@ -20,7 +20,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
 package swisidad.event;
 
-import swisidad.Coordonate;
+import swisidad.Coordinate;
 import swisidad.component.SwisiComponent;
 
 /**
@@ -39,5 +39,5 @@ public interface SwisiMouseEvent {
 	 * 
 	 * @return la position de la souris relative au composant source.
 	 */
-	public Coordonate getMousePosition();
+	public Coordinate getMousePosition();
 }

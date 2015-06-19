@@ -31,7 +31,7 @@ public interface SwisiContainer extends SwisiComponent {
 	 * 
 	 * @param component le composant à ajouter
 	 */
-	public void add(SwisiDraggable component);
+	public void addSwisiComponent(SwisiComponent component);
 	
 	/**
 	 * Ajoute un composant draggable au container à une position spécifique si possible. <br>
@@ -40,12 +40,12 @@ public interface SwisiContainer extends SwisiComponent {
 	 * @param component le composant à ajouter
 	 * @param pos les coordonnées auxquelles positioner le composant dans le container.
 	 */
-	public void add(SwisiDraggable component, Coordinate pos);
+	public void addSwisiComponent(SwisiComponent component, Coordinate pos);
 	
 	/**
 	 * Supprime le composant draggable du container.
 	 * 
 	 * @param component le composant à supprimer
 	 */
-	public void remove(SwisiDraggable component);
+	public void removeSwisiComponent(SwisiComponent component);
 }

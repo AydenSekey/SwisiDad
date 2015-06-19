@@ -38,7 +38,7 @@ public interface SwisiDraggable extends SwisiToggleVisibiliteComponent, SwisiCom
 	 * 
 	 * @return le container du composant.
 	 */
-	public SwisiContainer getContainer();
+	public SwisiContainer getSwisiContainer();
 	
 	/**
 	 * Déplace le composant.

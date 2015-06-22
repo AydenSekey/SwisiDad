@@ -39,6 +39,17 @@ public class Coordinate {
 	}
 
 	/**
+	 * Donne les coordonnées correspondante à un déplacement depuis des coordonnées. <br>
+	 * Exemple avec comme origine (1;2) un déplacement (-1;3) donnera comme résultat (0;5).
+	 * @param origin les coordonnées d'origine
+	 * @param move les coordonnées de déplacement.
+	 * @return les coordonnées après déplacement.
+	 */
+	public static Coordinate moveFrom(Coordinate origin, Coordinate move) {
+		return new Coordinate(origin.getX() + move.getX(), origin.getY() + move.getY());
+	}
+
+	/**
 	 * Crée une coordonnée (0;0).
 	 */
 	public Coordinate() {

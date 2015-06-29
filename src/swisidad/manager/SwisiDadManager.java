@@ -104,7 +104,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 			throw new NullPointerException("La copie graphique ne devrait pas être null pendant le drag.");
 		if(mousePosition == null)
 			throw new NullPointerException("La position de la souris devrait être fournie dans l'événement");
-		Coordinate newCoord = Coordinate.moveFrom(draggableMouseOriginePosGlassPan, mousePosition);  
+		Coordinate newCoord = Coordinate.add(draggableMouseOriginePosGlassPan, mousePosition);  
 		graphicalCopy.moveTo(newCoord.getX(), newCoord.getY());
 	}
 

@@ -68,4 +68,38 @@ public class CoordinateTest {
 		assertEquals("relative de deux coordonnées différentes incorrecte", new Coordinate(2, 2), result);
 	}
 
+	@Test
+	public void testAdd() {
+		final Coordinate origine = new Coordinate();
+		Coordinate coord1 = new Coordinate(1, 2);
+		Coordinate coord2 = new Coordinate(3, 4);
+		
+		assertEquals("Addition avec l'origine erronée", coord1, Coordinate.add(origine, coord1));
+		assertEquals("Addition incorrecte", new Coordinate(4, 6), Coordinate.add(coord1, coord2));
+		// Commutativité
+		assertEquals("Commutativité avec l'origine erronée", coord1, Coordinate.add(coord1, origine));
+		assertEquals("Commutativité incorrecte", new Coordinate(4, 6), Coordinate.add(coord2, coord1));
+		// Addition négative
+		coord2 = new Coordinate(-1, -3);
+		assertEquals("Addition de positif avec négatif incorrecte", new Coordinate(0, -1), Coordinate.add(coord1, coord2));
+		coord1 = new Coordinate(-1, -1);
+		assertEquals("Addition de négatif avec négatif incorrecte", new Coordinate(-2, -4), Coordinate.add(coord1, coord2));
+	}
+	
+	@Test
+	public void testSub() {
+		final Coordinate origine = new Coordinate();
+		Coordinate coord1 = new Coordinate(1, 2);
+		Coordinate coord2 = new Coordinate(3, 4);
+		
+		assertEquals("Soustraction avec l'origine erronée", new Coordinate(coord1.getX() * -1, coord1.getY() * -1), Coordinate.sub(origine, coord1));
+		assertEquals("Soustraction incorrecte", new Coordinate(-2, -2), Coordinate.sub(coord1, coord2));
+		// Commutativité
+		assertNotEquals("Commutativité incorrecte", new Coordinate(-2, -2), Coordinate.sub(coord2, coord1));
+		// Soustraction négative
+		coord2 = new Coordinate(-1, -3);
+		assertEquals("Soustraction de positif avec négatif incorrecte", new Coordinate(2, 5), Coordinate.sub(coord1, coord2));
+		coord1 = new Coordinate(-1, -1);
+		assertEquals("Soustraction de négatif avec négatif incorrecte", new Coordinate(0, 2), Coordinate.sub(coord1, coord2));
+	}
 }

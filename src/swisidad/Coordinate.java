@@ -39,14 +39,25 @@ public class Coordinate {
 	}
 
 	/**
-	 * Donne les coordonnées correspondante à un déplacement depuis des coordonnées. <br>
-	 * Exemple avec comme origine (1;2) un déplacement (-1;3) donnera comme résultat (0;5).
-	 * @param origin les coordonnées d'origine
-	 * @param move les coordonnées de déplacement.
-	 * @return les coordonnées après déplacement.
+	 * Additionne des coordonnées. <br>
+	 * Exemple avec comme coordonnées (1;2) et (-1;3) le résultat sera (0;5).
+	 * @param coord1 les coordonnées d'origine
+	 * @param coord2 les coordonnées de déplacement.
+	 * @return les coordonnées résulantes de l'addition.
 	 */
-	public static Coordinate moveFrom(Coordinate origin, Coordinate move) {
-		return new Coordinate(origin.getX() + move.getX(), origin.getY() + move.getY());
+	public static Coordinate add(Coordinate coord1, Coordinate coord2) {
+		return new Coordinate(coord1.getX() + coord2.getX(), coord1.getY() + coord2.getY());
+	}
+	
+	/**
+	 * Soustrait des coordonées à d'autres. <br>
+	 * Exemple avec comme coordonnées (1;2) et (-3;2) le résultat sera (4;0).
+	 * @param origin les coordonnées auxquelles soustraire les autres
+	 * @param coord les coordonnées à soustraire
+	 * @return les coordonnées résultant de la soustraction.
+	 */
+	public static Coordinate sub(Coordinate origin, Coordinate coord) {
+		return new Coordinate(origin.getX() - coord.getX(), origin.getY() - coord.getY());
 	}
 
 	/**

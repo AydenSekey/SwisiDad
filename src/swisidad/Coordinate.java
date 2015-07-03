@@ -35,7 +35,7 @@ public class Coordinate {
 	 * @return les coordonées de la cible relative à l'origine.
 	 */
 	public static Coordinate relative(Coordinate origin, Coordinate coordonate) {
-		return new Coordinate(coordonate.x - origin.x, coordonate.y - origin.y);
+		return sub(coordonate, origin);
 	}
 
 	/**

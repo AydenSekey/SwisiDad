@@ -23,9 +23,9 @@ package swisidad;
 /**
  * Représentation des coordonnées dans SwisiDad.
  */
-public class Coordinate {
-	private int x;
-	private int y;
+public final class Coordinate {
+	private final int x;
+	private final int y;
 	
 	/**
 	 * Donne la coordonée relative à une coordonnée d'origine correspondante à une autre coordonnée.
@@ -89,40 +89,12 @@ public class Coordinate {
 	}
 	
 	/**
-	 * Modifie l'ordonnée.
-	 * 
-	 * @param y la nouvelle ordonnée
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	/**
 	 * Donne l'abscisse de la coordonnée.
 	 * 
 	 * @return l'abscisse
 	 */
 	public int getX() {
 		return x;
-	}
-
-	/**
-	 * Modifie l'abscisse de la coordonnée.
-	 * 
-	 * @param x la nouvelle abscisse.
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-	
-	/**
-	 * Modifie l'abscisse et l'ordonnée de la coordonnée.
-	 * @param x la nouvelle abcisse
-	 * @param y la nouvelle ordonnée
-	 */
-	public void setXY(int x, int y) {
-		this.x = x;
-		this.y = y;
 	}
 
 	@Override

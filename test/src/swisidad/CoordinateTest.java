@@ -34,8 +34,7 @@ public class CoordinateTest {
 		assertEquals("L'identité n'implique pas l'égalité !", c1, c1);
 		assertNotEquals("Inegalité incorrecte", c1, c2);
 		
-		c2.setX(c1.getX());
-		c2.setY(c1.getY());
+		c2 = new Coordinate(c1.getX(), c1.getY());
 		
 		assertEquals("Egalité incorrecte", c1, c2);
 		assertEquals("Commutativité incorrecte", c2, c1);

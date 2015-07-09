@@ -39,4 +39,13 @@ public class SwisiRectangleTest {
 		assertFalse("Les deux rectangle ne devrait pas avoir une intersection", SwisiRectangle.intersect(rect1, rect2));
 	}
 
+	@Test
+	public void testArea() {
+		SwisiRectangle rect = new SwisiRectangle(new Coordinate(), 10, 20);
+		final long area = rect.area();
+		assertEquals("Aire incorrecte", 200, area);
+
+		rect = new SwisiRectangle(new Coordinate(), 20, 10);
+		assertEquals("Aire différente si la hauteur et la largeur sont inversée", area, rect.area());
+	}
 }

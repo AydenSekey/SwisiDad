@@ -101,4 +101,12 @@ public class SwisiRectangle {
 			throw new IllegalArgumentException("l'origine d'un rectangle ne doit pas être null.");
 		origine = o;
 	}
+	
+	/**
+	 * Calcule l'aire du rectangle.
+	 * @return l'aire du rectangle.
+	 */
+	public long area() {
+		return width * height;
+	}
 }

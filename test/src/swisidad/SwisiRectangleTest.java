@@ -48,4 +48,61 @@ public class SwisiRectangleTest {
 		rect = new SwisiRectangle(new Coordinate(), 20, 10);
 		assertEquals("Aire différente si la hauteur et la largeur sont inversée", area, rect.area());
 	}
+	
+	@Test
+	public void testIntersection() {
+		SwisiRectangle rect1 = new SwisiRectangle(new Coordinate(), 10, 20);
+		SwisiRectangle rect2 = new SwisiRectangle(new Coordinate(5, 10), 10, 20);
+		
+		// Intersection avec lui-même
+		SwisiRectangle intersection1 = SwisiRectangle.intersection(rect1, rect1);
+		assertNotNull("Absence d'intersection à tord", intersection1);
+		assertEquals("Largeur de l'intersection incorrecte", rect1.getWidth(), intersection1.getWidth());
+		assertEquals("Hauteur de l'intersection incorrecte", rect1.getHeight(), intersection1.getHeight());
+		assertEquals("Abcisse du coin supérieur gauche", rect1.getOrigine().getX(), intersection1.getOrigine().getX());
+		assertEquals("Ordonnée du coin supérieur gauche", rect1.getOrigine().getY(), intersection1.getOrigine().getY());
+		
+		// Intersection rect1 en haut à gauche de rect2
+		intersection1 = SwisiRectangle.intersection(rect1, rect2);
+		assertNotNull("Absence d'intersection à tord", intersection1);
+		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());
+		assertEquals("Hauteur de l'intersection incorrecte", 10, intersection1.getHeight());
+		assertEquals("Abcisse du coin supérieur gauche", 5, intersection1.getOrigine().getX());
+		assertEquals("Ordonnée du coin supérieur gauche", 10, intersection1.getOrigine().getY());
+
+		// Commutativité : rect2 en bas à droite de rect1
+		intersection1 = SwisiRectangle.intersection(rect2, rect1);
+		assertNotNull("Absence d'intersection à tord", intersection1);
+		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());
+		assertEquals("Hauteur de l'intersection incorrecte", 10, intersection1.getHeight());
+		assertEquals("Abcisse du coin supérieur gauche", 5, intersection1.getOrigine().getX());
+		assertEquals("Ordonnée du coin supérieur gauche", 10, intersection1.getOrigine().getY());
+
+		// Intersection rect1 en bas à gauche de rect2
+		rect1.setOrigine(new Coordinate(0, 20));
+		intersection1 = SwisiRectangle.intersection(rect1, rect2);
+		assertNotNull("Absence d'intersection à tord", intersection1);
+		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());
+		assertEquals("Hauteur de l'intersection incorrecte", 10, intersection1.getHeight());
+		assertEquals("Abcisse du coin supérieur gauche", 5, intersection1.getOrigine().getX());
+		assertEquals("Ordonnée du coin supérieur gauche", 20, intersection1.getOrigine().getY());
+
+		// Commutativité : rect2 en haut à droite de rect1
+		intersection1 = SwisiRectangle.intersection(rect2, rect1);
+		assertNotNull("Absence d'intersection à tord", intersection1);
+		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());
+		assertEquals("Hauteur de l'intersection incorrecte", 10, intersection1.getHeight());
+		assertEquals("Abcisse du coin supérieur gauche", 5, intersection1.getOrigine().getX());
+		assertEquals("Ordonnée du coin supérieur gauche", 20, intersection1.getOrigine().getY());
+
+		// Coordonnées négatives
+		rect1.setOrigine(new Coordinate(-5, -10));
+		rect2.setOrigine(new Coordinate());
+		intersection1 = SwisiRectangle.intersection(rect1, rect2);
+		assertNotNull("Absence d'intersection à tord", intersection1);
+		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());
+		assertEquals("Hauteur de l'intersection incorrecte", 10, intersection1.getHeight());
+		assertEquals("Abcisse du coin supérieur gauche", 0, intersection1.getOrigine().getX());
+		assertEquals("Ordonnée du coin supérieur gauche", 0, intersection1.getOrigine().getY());
+	}
 }

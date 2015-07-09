@@ -52,6 +52,41 @@ public class SwisiRectangle {
 		}
 		return intersect;
 	}
+
+	/**
+	 * Calcul l'intersection de deux rectangles.
+	 * @param rect1 le premier rectangle. Ne doit pas être <code>null</code>.
+	 * @param rect2 le deuxième rectangle. Ne doit pas être <code>null</code>.
+	 * @return un nouveau rectangle représentant l'intersection ou <code>null</code> s'il n'y a pas d'intersection.
+	 * @throws IllegalArgumentException si un argument est <code>null</code>.
+	 */
+	public static SwisiRectangle intersection(SwisiRectangle rect1,	SwisiRectangle rect2) {
+		if(rect1 == null || rect2 == null) {
+			throw new IllegalArgumentException("Les paramètres de doivent pas êtres null");
+		}
+		if(rect1 == rect2) {
+			// Si c'est le même objet pas de question, l'intersection d'un rectangle avec lui-même est un rectangle identique à lui-même.
+			return new SwisiRectangle(rect1);
+		}
+
+		SwisiRectangle intersection = null;
+		if(intersect(rect1, rect2)) {
+			// Une intersection existe, reste à la calculer :)
+			Coordinate rect1OriginOpposite = rect1.oppositeOrigneCornerCoordinate();
+			Coordinate rect2OriginOpposite = rect2.oppositeOrigneCornerCoordinate();
+
+			int xLeft = Math.max(rect1.getOrigine().getX(), rect2.getOrigine().getX());
+			int xRight = Math.min(rect1OriginOpposite.getX(), rect2OriginOpposite.getX());
+			int yTop = Math.max(rect1.getOrigine().getY(), rect2.getOrigine().getY());
+			int yBottom = Math.min(rect1OriginOpposite.getY(), rect2OriginOpposite.getY());
+			Coordinate intersectionOrigine = new Coordinate(xLeft, yTop);
+			int intersectionWidth = xRight - xLeft;
+			int intersectionHeight = yBottom - yTop;
+			intersection = new SwisiRectangle(intersectionOrigine, intersectionWidth, intersectionHeight);
+		}
+		return intersection;
+	}
+
 	/**
 	 * Crée un rectangle.
 	 * @param o les coordonnée du coin supérieur gauche du rectangle.
@@ -66,6 +101,15 @@ public class SwisiRectangle {
 		origine = o;
 		width = w;
 		height = h;
+	}
+	
+	/**
+	 * Crée un rectangle par copie d'un autre.
+	 * @param rect le rectangle à copier.
+	 */
+	public SwisiRectangle(SwisiRectangle rect) {
+		// Référence sur la même Coordinate OK car l'objet est immutable.
+		this(rect.getOrigine(), rect.getWidth(), rect.getHeight());
 	}
 
 	/**
@@ -108,5 +152,13 @@ public class SwisiRectangle {
 	 */
 	public long area() {
 		return width * height;
+	}
+	
+	/**
+	 * Donne les coordonées du coin opposé à celui servant d'origine. C'est à dire les coordonées du coin inférieur droit.
+	 * @return les coordonées du coin inférieur droit du rectangle.
+	 */
+	public Coordinate oppositeOrigneCornerCoordinate() {
+		return new Coordinate(origine.getX() + width, origine.getY() + height);
 	}
 }

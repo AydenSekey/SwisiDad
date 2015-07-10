@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import swisidad.Coordinate;
+import swisidad.SwisiRectangle;
 import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiContainer;
 import swisidad.component.SwisiGlassPan;
@@ -114,7 +115,44 @@ public class SwisiDadManager implements SwisiMouseListener {
 	 * @return la cible survolée ou <code>null</code> si aucune n'est survolée.
 	 */
 	private SwisiTarget findTargetSurvole() {
-		return null;
+		SwisiTarget targetFind = null;
+		long intersectFind = 0;
+		for(SwisiTarget target : targets) {
+			// Eliminer le cas du composant draggué aussi cible
+			if(target != draggable) {
+				// Calculer l'intersection
+				long intersect = intersect(graphicalCopy, target);
+				if(intersect > intersectFind) {
+					// On conserve celui qui à la plus grosse intersection
+					intersectFind = intersect;
+					targetFind = target;
+				}
+			}
+		}
+		return targetFind;
+	}
+	
+	/**
+	 * Test l'instersection de 2 composants.
+	 * 
+	 * @param component1 le premier composant
+	 * @param component2 le deuxième composant
+	 * @return une valeur positive correspondant à l'aire d'intersection, 0 s'il n'y a pas d'intersection.
+	 */
+	private long intersect(SwisiComponent component1, SwisiComponent component2) {
+		// Récupération des coordonnées absolues
+		Coordinate posCompo1 = component1.getSwisiPositionOnScreen();
+		Coordinate posCompo2 = component2.getSwisiPositionOnScreen();
+		if(posCompo1 == null || posCompo2 == null) {
+			return 0;
+		}
+		SwisiRectangle rectCompo1 = new SwisiRectangle(posCompo1, component1.getWidth(), component1.getHeight());
+		SwisiRectangle rectCompo2 = new SwisiRectangle(posCompo2, component2.getWidth(), component2.getHeight());
+		SwisiRectangle intersection = SwisiRectangle.intersection(rectCompo1, rectCompo2);
+		if(intersection != null) {
+			return intersection.area();
+		}
+		return 0;
 	}
 
 	/**
@@ -195,10 +233,13 @@ public class SwisiDadManager implements SwisiMouseListener {
 	private void pushToTarget(final SwisiTarget target) {
 		// On récupère l'ancien conteneur possèdant le composant draggué
 		SwisiContainer oldContainer = draggable.getSwisiContainer();
-		// On demande à la cible trouvée la réception du composant draggué
-		if(target.receive(draggable)) {
-			// Si la cible à bien réceptionné le composant, on supprime ce dernier de son ancien conteneur
-			oldContainer.removeSwisiComponent(draggable);
+		// Si la cible est différente du conteneur actuel.
+		if(target != oldContainer) {
+			// On demande à la cible trouvée la réception du composant draggué
+			if(target.receive(draggable)) {
+				// Si la cible à bien réceptionné le composant, on supprime ce dernier de son ancien conteneur
+				oldContainer.removeSwisiComponent(draggable);
+			}
 		}
 	}
 }

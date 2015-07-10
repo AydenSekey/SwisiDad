@@ -233,11 +233,13 @@ public class SwisiDadManager implements SwisiMouseListener {
 	private void pushToTarget(final SwisiTarget target) {
 		// On récupère l'ancien conteneur possèdant le composant draggué
 		SwisiContainer oldContainer = draggable.getSwisiContainer();
-		// Si la cible est différente du conteneur actuel.
-		if(target != oldContainer) {
-			// On demande à la cible trouvée la réception du composant draggué
-			if(target.receive(draggable)) {
-				// Si la cible à bien réceptionné le composant, on supprime ce dernier de son ancien conteneur
+		// On cacul les coordonnées de drop
+		Coordinate dropCoordinate = Coordinate.relative(target.getSwisiPositionOnScreen(), graphicalCopy.getSwisiPositionOnScreen());
+		// On demande à la cible trouvée la réception du composant draggué
+		if(target.receive(draggable, dropCoordinate)) {
+			// Si la cible à bien réceptionné le composant, on supprime ce dernier de son ancien conteneur
+			// seulement si la cible est différente du conteneur actuel.
+			if(target != oldContainer) {
 				oldContainer.removeSwisiComponent(draggable);
 			}
 		}

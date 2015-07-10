@@ -71,8 +71,9 @@ public class SimpleContainer extends JPanel implements SwisiTarget {
 	}
 
 	@Override
-	public boolean receive(SwisiDraggable component) {
+	public boolean receive(SwisiDraggable component, Coordinate dropCoord) {
 		addSwisiComponent(component);
+		System.out.println("drop at " + dropCoord);
 		return true;
 	}
 

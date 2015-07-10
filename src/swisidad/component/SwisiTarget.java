@@ -32,12 +32,4 @@ public interface SwisiTarget extends SwisiContainer {
 	 * @return <code>true</code> si l'objet est receptionné, <code>false</code> si l'objet est refusé.
 	 */
 	public boolean receive(SwisiDraggable component);
-	
-	/**
-	 * Indique à la cible quelle est survolée.
-	 * 
-	 * @param x l'abscisse à laquelle le composant draggué survole la cible
-	 * @param y l'ordonnée à laquelle le composant draggué survole la cible
-	 */
-	public void survoler(int x, int y);
 }

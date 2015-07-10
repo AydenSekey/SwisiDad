@@ -77,11 +77,6 @@ public class SimpleContainer extends JPanel implements SwisiTarget {
 	}
 
 	@Override
-	public void survoler(int x, int y) {
-		System.out.println("survol : " + x + ";" + y);
-	}
-
-	@Override
 	public void addSwisiComponent(SwisiComponent component, Coordinate pos) {
 		Component c = ((Component) component);
 		c.setLocation(pos.getX(), pos.getY());

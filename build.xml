@@ -20,7 +20,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <project name="SwisiDad" default="dist" >
 	<property name="app.name" value="swisidad" />
-	<property name="app.version" value="0.0" />
+	<property name="app.version" value="0.1" />
 	<property name="src.dir" value="src" />
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/classes" />

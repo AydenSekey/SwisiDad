@@ -27,6 +27,13 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 	<property name="jar.dir" value="${build.dir}/jar" />
 	<property name="doc.dir" value="doc/javadoc" />
 	<property name="dist.dir" value="dist" />
+	<property name="test.src.dir" value="test/src" />
+	<property name="test.classes.dir" value="${build.dir}/test/classes" />
+	<property name="test.lib.dir" value="test/lib" />
+	<property name="demo.src.dir" value="demo/src" />
+	<property name="demo.classes.dir" value="${build.dir}/demo/classes" />
+	<property name="demo.jar.dir" value="${build.dir}/jar" />
+	<property name="demo.main-class" value="demo.swisidad.simple.DemoSimple" />
 	
 	<target name="init" >
 		<mkdir dir="${classes.dir}" />
@@ -78,5 +85,48 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 			<include name="**/*" />
 			<exclude name="${app.name}.zip" />
 		</zip>
+	</target>
+	
+	<!-- test -->
+	<path id="test.build.classpath" >
+		<pathelement path="${classes.dir}"/>
+		<fileset dir="${test.lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile_test" depends="compile" description="compile les tests">
+		<mkdir dir="${test.classes.dir}" />
+		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" classpathref="test.build.classpath" debug="on" >
+			<include name="**/*.java" />
+		</javac>
+	</target>
+
+	<target name="clean_test" description="Supprime les fichiers du répertoire de construction des tests" >
+		<delete dir="${test.classes.dir}" />
+	</target>
+
+	<!-- demo -->
+	<target name="compile_demo" depends="compile" description="compile les démos">
+		<mkdir dir="${demo.classes.dir}" />
+		<javac srcdir="${demo.src.dir}" destdir="${demo.classes.dir}" classpath="${classes.dir}" >
+			<include name="**/*.java" />
+		</javac>
+	</target>
+
+	<target name="clean_demo" description="Supprime les fichiers du répertoire de construction des démos" >
+		<delete dir="${demo.classes.dir}" />
+	</target>
+
+	<target name="jar_demo" depends="compile_demo,jar" description="Crée l'archive JAR des démos" >
+		<jar destfile="${demo.jar.dir}/${app.name}_demos.jar" basedir="${demo.classes.dir}" >
+			<manifest>
+				<attribute name="Implementation-Title" value="${app.name}_demos"/>
+				<attribute name="Implementation-Version" value="${app.version}"/>
+				<attribute name="Class-Path" value="${app.name}.jar" />
+				<attribute name="Main-Class" value="${demo.main-class}" />
+			</manifest>
+			<include name="**/*.class" />
+		</jar>
 	</target>
 </project>

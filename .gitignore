@@ -5,3 +5,4 @@ bin/
 build/
 dist/
 *.class
+test/reports/

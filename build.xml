@@ -30,6 +30,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 	<property name="test.src.dir" value="test/src" />
 	<property name="test.classes.dir" value="${build.dir}/test/classes" />
 	<property name="test.lib.dir" value="test/lib" />
+	<property name="test.reports.dir" value="test/reports" />
 	<property name="demo.src.dir" value="demo/src" />
 	<property name="demo.classes.dir" value="${build.dir}/demo/classes" />
 	<property name="demo.jar.dir" value="${build.dir}/jar" />
@@ -95,6 +96,11 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 		</fileset>
 	</path>
 
+	<path id="test.classpath" >
+		<path refid="test.build.classpath" />
+		<pathelement path="${test.classes.dir}" />
+	</path>
+	
 	<target name="compile_test" depends="compile" description="compile les tests">
 		<mkdir dir="${test.classes.dir}" />
 		<javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" classpathref="test.build.classpath" debug="on" >
@@ -106,6 +112,19 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 		<delete dir="${test.classes.dir}" />
 	</target>
 
+	<target name="test" depends="compile_test" description="Lance les tests unitaires">
+		<delete dir="${test.reports.dir}" />
+		<mkdir dir="${test.reports.dir}" />
+		<junit printsummary="true" haltonfailure="false" haltonerror="false" fork="true" >
+			<assertions><enable/></assertions>
+			<classpath refid="test.classpath" />
+			<formatter type="plain" />
+			<batchtest todir="${test.reports.dir}">
+				<fileset dir="${test.classes.dir}" includes="**/*.class" />
+			</batchtest>
+		</junit>
+	</target>
+	
 	<!-- demo -->
 	<target name="compile_demo" depends="compile" description="compile les démos">
 		<mkdir dir="${demo.classes.dir}" />

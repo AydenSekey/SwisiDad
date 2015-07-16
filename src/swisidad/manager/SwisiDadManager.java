@@ -180,6 +180,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 		int xOrigine = coord.getX() - mouseClicPos.getX();
 		int yOrigine = coord.getY() - mouseClicPos.getY();
 		draggableMouseOriginePosGlassPan = new Coordinates(xOrigine, yOrigine);
+		draggable.setVisible(false);
 		// Placer la copy sur le GlassPan
 		graphicalCopy.moveTo(coord.getX(), coord.getY());
 		glassPan.addSwisiComponent(graphicalCopy);

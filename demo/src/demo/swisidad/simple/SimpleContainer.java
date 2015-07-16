@@ -33,6 +33,7 @@ import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiTarget;
 import swisidad.component.SwisiDraggable;
+import swisidad.swing.tools.CoordinatesPointConverter;
 
 public class SimpleContainer extends JPanel implements SwisiTarget {
 
@@ -44,13 +45,13 @@ public class SimpleContainer extends JPanel implements SwisiTarget {
 	@Override
 	public Coordinates getMouseSwisiCoordonates() {
 		Point pMouse =  super.getMousePosition();
-		return toCoordonate(pMouse);
+		return CoordinatesPointConverter.toCoordinates(pMouse);
 	}
 
 	@Override
 	public Coordinates getSwisiPositionOnScreen() {
 		Point pos = super.getLocationOnScreen();
-		return toCoordonate(pos);
+		return CoordinatesPointConverter.toCoordinates(pos);
 	}
 
 	@Override
@@ -61,13 +62,6 @@ public class SimpleContainer extends JPanel implements SwisiTarget {
 	@Override
 	public void removeSwisiComponent(SwisiComponent component) {
 		super.remove((Component) component);
-	}
-
-	private Coordinates toCoordonate(Point p) {
-		if(p == null) {
-			return null;
-		}
-		return new Coordinates((int) p.getX(), (int) p.getY());
 	}
 
 	@Override

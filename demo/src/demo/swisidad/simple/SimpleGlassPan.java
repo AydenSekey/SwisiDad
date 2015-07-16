@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiGlassPan;
+import swisidad.swing.tools.CoordinatesPointConverter;
 
 public class SimpleGlassPan extends JPanel implements SwisiGlassPan {
 
@@ -57,19 +58,12 @@ public class SimpleGlassPan extends JPanel implements SwisiGlassPan {
 	@Override
 	public Coordinates getMouseSwisiCoordonates() {
 		Point pMouse =  super.getMousePosition();
-		return toCoordonate(pMouse);
+		return CoordinatesPointConverter.toCoordinates(pMouse);
 	}
 
 	@Override
 	public Coordinates getSwisiPositionOnScreen() {
 		Point pos = super.getLocationOnScreen();
-		return toCoordonate(pos);
-	}
-
-	private Coordinates toCoordonate(Point p) {
-		if(p == null) {
-			return null;
-		}
-		return new Coordinates((int) p.getX(), (int) p.getY());
+		return CoordinatesPointConverter.toCoordinates(pos);
 	}
 }

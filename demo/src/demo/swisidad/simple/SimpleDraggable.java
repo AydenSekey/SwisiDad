@@ -18,6 +18,7 @@ import swisidad.component.SwisiContainer;
 import swisidad.component.SwisiDraggable;
 import swisidad.event.SwisiMouseEvent;
 import swisidad.listener.SwisiMouseListener;
+import swisidad.swing.tools.CoordinatesPointConverter;
 
 public class SimpleDraggable extends JPanel implements SwisiDraggable {
 
@@ -131,13 +132,6 @@ final class SwisiMouseEventSwing implements SwisiMouseEvent {
 	@Override
 	public Coordinates getMousePosition() {
 		Point p = event.getPoint();
-		return toCoordonate(p);
-	}
-	
-	private Coordinates toCoordonate(Point p) {
-		if(p == null) {
-			return null;
-		}
-		return new Coordinates((int) p.getX(), (int) p.getY());
+		return CoordinatesPointConverter.toCoordinates(p);
 	}
 }

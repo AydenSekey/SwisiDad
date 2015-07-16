@@ -23,7 +23,7 @@ package swisidad;
 /**
  * Représentation des coordonnées dans SwisiDad.
  */
-public final class Coordinate {
+public final class Coordinates {
 	private final int x;
 	private final int y;
 	
@@ -34,7 +34,7 @@ public final class Coordinate {
 	 * @param coordonate la coordonée cible
 	 * @return les coordonées de la cible relative à l'origine.
 	 */
-	public static Coordinate relative(Coordinate origin, Coordinate coordonate) {
+	public static Coordinates relative(Coordinates origin, Coordinates coordonate) {
 		return sub(coordonate, origin);
 	}
 
@@ -45,8 +45,8 @@ public final class Coordinate {
 	 * @param coord2 les coordonnées de déplacement.
 	 * @return les coordonnées résulantes de l'addition.
 	 */
-	public static Coordinate add(Coordinate coord1, Coordinate coord2) {
-		return new Coordinate(coord1.getX() + coord2.getX(), coord1.getY() + coord2.getY());
+	public static Coordinates add(Coordinates coord1, Coordinates coord2) {
+		return new Coordinates(coord1.getX() + coord2.getX(), coord1.getY() + coord2.getY());
 	}
 	
 	/**
@@ -56,14 +56,14 @@ public final class Coordinate {
 	 * @param coord les coordonnées à soustraire
 	 * @return les coordonnées résultant de la soustraction.
 	 */
-	public static Coordinate sub(Coordinate origin, Coordinate coord) {
-		return new Coordinate(origin.getX() - coord.getX(), origin.getY() - coord.getY());
+	public static Coordinates sub(Coordinates origin, Coordinates coord) {
+		return new Coordinates(origin.getX() - coord.getX(), origin.getY() - coord.getY());
 	}
 
 	/**
 	 * Crée une coordonnée (0;0).
 	 */
-	public Coordinate() {
+	public Coordinates() {
 		this(0, 0);
 	}
 	
@@ -73,7 +73,7 @@ public final class Coordinate {
 	 * @param x l'abscisse
 	 * @param y l'ordonnée
 	 */
-	public Coordinate(int x, int y) {
+	public Coordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -112,10 +112,10 @@ public final class Coordinate {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof Coordinate)) {
+		if (!(obj instanceof Coordinates)) {
 			return false;
 		}
-		Coordinate other = (Coordinate) obj;
+		Coordinates other = (Coordinates) obj;
 		return  x == other.x && y == other.y;
 	}
 	

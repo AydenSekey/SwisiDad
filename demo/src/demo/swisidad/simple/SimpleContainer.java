@@ -29,7 +29,7 @@ import java.awt.Point;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import swisidad.Coordinate;
+import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiTarget;
 import swisidad.component.SwisiDraggable;
@@ -42,13 +42,13 @@ public class SimpleContainer extends JPanel implements SwisiTarget {
 	}
 	
 	@Override
-	public Coordinate getMouseSwisiCoordonate() {
+	public Coordinates getMouseSwisiCoordonates() {
 		Point pMouse =  super.getMousePosition();
 		return toCoordonate(pMouse);
 	}
 
 	@Override
-	public Coordinate getSwisiPositionOnScreen() {
+	public Coordinates getSwisiPositionOnScreen() {
 		Point pos = super.getLocationOnScreen();
 		return toCoordonate(pos);
 	}
@@ -63,22 +63,22 @@ public class SimpleContainer extends JPanel implements SwisiTarget {
 		super.remove((Component) component);
 	}
 
-	private Coordinate toCoordonate(Point p) {
+	private Coordinates toCoordonate(Point p) {
 		if(p == null) {
 			return null;
 		}
-		return new Coordinate((int) p.getX(), (int) p.getY());
+		return new Coordinates((int) p.getX(), (int) p.getY());
 	}
 
 	@Override
-	public boolean receive(SwisiDraggable component, Coordinate dropCoord) {
+	public boolean receive(SwisiDraggable component, Coordinates dropCoord) {
 		addSwisiComponent(component);
 		System.out.println("drop at " + dropCoord);
 		return true;
 	}
 
 	@Override
-	public void addSwisiComponent(SwisiComponent component, Coordinate pos) {
+	public void addSwisiComponent(SwisiComponent component, Coordinates pos) {
 		Component c = ((Component) component);
 		c.setLocation(pos.getX(), pos.getY());
 		super.add(c);

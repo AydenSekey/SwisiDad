@@ -24,7 +24,7 @@ package swisidad;
  * Représente un rectangle.
  */
 public class SwisiRectangle {
-	private Coordinate origine;
+	private Coordinates origine;
 	private final int width;
 	private final int height;
 	
@@ -72,14 +72,14 @@ public class SwisiRectangle {
 		SwisiRectangle intersection = null;
 		if(intersect(rect1, rect2)) {
 			// Une intersection existe, reste à la calculer :)
-			Coordinate rect1OriginOpposite = rect1.oppositeOrigneCornerCoordinate();
-			Coordinate rect2OriginOpposite = rect2.oppositeOrigneCornerCoordinate();
+			Coordinates rect1OriginOpposite = rect1.oppositeOrigneCornerCoordinate();
+			Coordinates rect2OriginOpposite = rect2.oppositeOrigneCornerCoordinate();
 
 			int xLeft = Math.max(rect1.getOrigine().getX(), rect2.getOrigine().getX());
 			int xRight = Math.min(rect1OriginOpposite.getX(), rect2OriginOpposite.getX());
 			int yTop = Math.max(rect1.getOrigine().getY(), rect2.getOrigine().getY());
 			int yBottom = Math.min(rect1OriginOpposite.getY(), rect2OriginOpposite.getY());
-			Coordinate intersectionOrigine = new Coordinate(xLeft, yTop);
+			Coordinates intersectionOrigine = new Coordinates(xLeft, yTop);
 			int intersectionWidth = xRight - xLeft;
 			int intersectionHeight = yBottom - yTop;
 			intersection = new SwisiRectangle(intersectionOrigine, intersectionWidth, intersectionHeight);
@@ -93,7 +93,7 @@ public class SwisiRectangle {
 	 * @param w la largeur du rectangle. Doit être strictement positive.
 	 * @param h la hauteur du rectangle. Doit être strictement positive.
 	 */
-	public SwisiRectangle(Coordinate o, int w, int h) {
+	public SwisiRectangle(Coordinates o, int w, int h) {
 		if(o == null)
 			throw new IllegalArgumentException("L'origine d'un rectangle ne doit pas être null.");
 		if(w <= 0 || h <= 0)
@@ -116,7 +116,7 @@ public class SwisiRectangle {
 	 * Donne les coordonnées du coin supérieur gauche du rectangle.
 	 * @return les coordonnées.
 	 */
-	public Coordinate getOrigine() {
+	public Coordinates getOrigine() {
 		return origine;
 	}
 
@@ -140,7 +140,7 @@ public class SwisiRectangle {
 	 * Modifie les coordonnées du coin supérieur gauche du rectangle.
 	 * @param o les nouvelles coordonées. Ne doivent pas être null.
 	 */
-	public void setOrigine(Coordinate o) {
+	public void setOrigine(Coordinates o) {
 		if(o == null)
 			throw new IllegalArgumentException("l'origine d'un rectangle ne doit pas être null.");
 		origine = o;
@@ -158,7 +158,7 @@ public class SwisiRectangle {
 	 * Donne les coordonées du coin opposé à celui servant d'origine. C'est à dire les coordonées du coin inférieur droit.
 	 * @return les coordonées du coin inférieur droit du rectangle.
 	 */
-	public Coordinate oppositeOrigneCornerCoordinate() {
-		return new Coordinate(origine.getX() + width, origine.getY() + height);
+	public Coordinates oppositeOrigneCornerCoordinate() {
+		return new Coordinates(origine.getX() + width, origine.getY() + height);
 	}
 }

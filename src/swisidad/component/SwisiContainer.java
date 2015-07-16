@@ -20,7 +20,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
 package swisidad.component;
 
-import swisidad.Coordinate;
+import swisidad.Coordinates;
 
 /**
  * Interface pour les composants conteneur.
@@ -40,7 +40,7 @@ public interface SwisiContainer extends SwisiComponent {
 	 * @param component le composant à ajouter
 	 * @param pos les coordonnées auxquelles positioner le composant dans le container.
 	 */
-	public void addSwisiComponent(SwisiComponent component, Coordinate pos);
+	public void addSwisiComponent(SwisiComponent component, Coordinates pos);
 	
 	/**
 	 * Supprime le composant draggable du container.

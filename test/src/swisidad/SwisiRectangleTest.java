@@ -31,28 +31,28 @@ public class SwisiRectangleTest {
 
 	@Test
 	public void testIntersect() {
-		SwisiRectangle rect1 = new SwisiRectangle(new Coordinate(), 10, 20);
-		SwisiRectangle rect2 = new SwisiRectangle(new Coordinate(1, 1), 10, 20);
+		SwisiRectangle rect1 = new SwisiRectangle(new Coordinates(), 10, 20);
+		SwisiRectangle rect2 = new SwisiRectangle(new Coordinates(1, 1), 10, 20);
 		assertTrue("Les deux rectangle devrait avoir une intersection", SwisiRectangle.intersect(rect1, rect2));
 		
-		rect2.setOrigine(new Coordinate(1, 20));
+		rect2.setOrigine(new Coordinates(1, 20));
 		assertFalse("Les deux rectangle ne devrait pas avoir une intersection", SwisiRectangle.intersect(rect1, rect2));
 	}
 
 	@Test
 	public void testArea() {
-		SwisiRectangle rect = new SwisiRectangle(new Coordinate(), 10, 20);
+		SwisiRectangle rect = new SwisiRectangle(new Coordinates(), 10, 20);
 		final long area = rect.area();
 		assertEquals("Aire incorrecte", 200, area);
 
-		rect = new SwisiRectangle(new Coordinate(), 20, 10);
+		rect = new SwisiRectangle(new Coordinates(), 20, 10);
 		assertEquals("Aire différente si la hauteur et la largeur sont inversée", area, rect.area());
 	}
 	
 	@Test
 	public void testIntersection() {
-		SwisiRectangle rect1 = new SwisiRectangle(new Coordinate(), 10, 20);
-		SwisiRectangle rect2 = new SwisiRectangle(new Coordinate(5, 10), 10, 20);
+		SwisiRectangle rect1 = new SwisiRectangle(new Coordinates(), 10, 20);
+		SwisiRectangle rect2 = new SwisiRectangle(new Coordinates(5, 10), 10, 20);
 		
 		// Intersection avec lui-même
 		SwisiRectangle intersection1 = SwisiRectangle.intersection(rect1, rect1);
@@ -79,7 +79,7 @@ public class SwisiRectangleTest {
 		assertEquals("Ordonnée du coin supérieur gauche", 10, intersection1.getOrigine().getY());
 
 		// Intersection rect1 en bas à gauche de rect2
-		rect1.setOrigine(new Coordinate(0, 20));
+		rect1.setOrigine(new Coordinates(0, 20));
 		intersection1 = SwisiRectangle.intersection(rect1, rect2);
 		assertNotNull("Absence d'intersection à tord", intersection1);
 		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());
@@ -96,8 +96,8 @@ public class SwisiRectangleTest {
 		assertEquals("Ordonnée du coin supérieur gauche", 20, intersection1.getOrigine().getY());
 
 		// Coordonnées négatives
-		rect1.setOrigine(new Coordinate(-5, -10));
-		rect2.setOrigine(new Coordinate());
+		rect1.setOrigine(new Coordinates(-5, -10));
+		rect2.setOrigine(new Coordinates());
 		intersection1 = SwisiRectangle.intersection(rect1, rect2);
 		assertNotNull("Absence d'intersection à tord", intersection1);
 		assertEquals("Largeur de l'intersection incorrecte", 5, intersection1.getWidth());

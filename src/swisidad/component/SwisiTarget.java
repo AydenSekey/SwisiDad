@@ -20,7 +20,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
 package swisidad.component;
 
-import swisidad.Coordinate;
+import swisidad.Coordinates;
 
 /**
  * Interface pour les conteneurs pouvant recevoir les objets droppés.
@@ -34,5 +34,5 @@ public interface SwisiTarget extends SwisiContainer {
 	 * @param dropCoord les coordonnées de drop par rapport à la cible.
 	 * @return <code>true</code> si l'objet est receptionné, <code>false</code> si l'objet est refusé.
 	 */
-	public boolean receive(SwisiDraggable component, Coordinate dropCoord);
+	public boolean receive(SwisiDraggable component, Coordinates dropCoord);
 }

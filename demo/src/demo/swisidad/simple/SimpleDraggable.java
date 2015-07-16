@@ -12,7 +12,7 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JPanel;
 
-import swisidad.Coordinate;
+import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiContainer;
 import swisidad.component.SwisiDraggable;
@@ -28,13 +28,13 @@ public class SimpleDraggable extends JPanel implements SwisiDraggable {
 	}
 	
 	@Override
-	public Coordinate getMouseSwisiCoordonate() {
+	public Coordinates getMouseSwisiCoordonates() {
 		Point pMouse = getMousePosition();
 		return toCoordonate(pMouse);
 	}
 
 	@Override
-	public Coordinate getSwisiPositionOnScreen() {
+	public Coordinates getSwisiPositionOnScreen() {
 		Point pos = getLocationOnScreen();
 		return toCoordonate(pos);
 	}
@@ -104,11 +104,11 @@ public class SimpleDraggable extends JPanel implements SwisiDraggable {
 		}
 	}
 
-	private Coordinate toCoordonate(Point p) {
+	private Coordinates toCoordonate(Point p) {
 		if(p == null) {
 			return null;
 		}
-		return new Coordinate((int) p.getX(), (int) p.getY());
+		return new Coordinates((int) p.getX(), (int) p.getY());
 	}
 }
 
@@ -129,15 +129,15 @@ final class SwisiMouseEventSwing implements SwisiMouseEvent {
 	}
 
 	@Override
-	public Coordinate getMousePosition() {
+	public Coordinates getMousePosition() {
 		Point p = event.getPoint();
 		return toCoordonate(p);
 	}
 	
-	private Coordinate toCoordonate(Point p) {
+	private Coordinates toCoordonate(Point p) {
 		if(p == null) {
 			return null;
 		}
-		return new Coordinate((int) p.getX(), (int) p.getY());
+		return new Coordinates((int) p.getX(), (int) p.getY());
 	}
 }

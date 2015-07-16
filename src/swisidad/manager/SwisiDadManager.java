@@ -23,7 +23,7 @@ package swisidad.manager;
 import java.util.HashSet;
 import java.util.Set;
 
-import swisidad.Coordinate;
+import swisidad.Coordinates;
 import swisidad.SwisiRectangle;
 import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiContainer;
@@ -42,7 +42,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 	private SwisiGlassPan glassPan;
 	private SwisiDraggable draggable;
 	private SwisiDraggable graphicalCopy;
-	private Coordinate draggableMouseOriginePosGlassPan;
+	private Coordinates draggableMouseOriginePosGlassPan;
 	
 	public SwisiDadManager() {
 		targets = new HashSet<>();
@@ -100,12 +100,12 @@ public class SwisiDadManager implements SwisiMouseListener {
 	 * Déplace le composant en cours de drag.
 	 * @param mousePosition la position de la souris par rapport au composant détectant le drag.
 	 */
-	private void drag(Coordinate mousePosition) {
+	private void drag(Coordinates mousePosition) {
 		if(graphicalCopy == null)
 			throw new NullPointerException("La copie graphique ne devrait pas être null pendant le drag.");
 		if(mousePosition == null)
 			throw new NullPointerException("La position de la souris devrait être fournie dans l'événement");
-		Coordinate newCoord = Coordinate.add(draggableMouseOriginePosGlassPan, mousePosition);  
+		Coordinates newCoord = Coordinates.add(draggableMouseOriginePosGlassPan, mousePosition);  
 		graphicalCopy.moveTo(newCoord.getX(), newCoord.getY());
 	}
 
@@ -141,8 +141,8 @@ public class SwisiDadManager implements SwisiMouseListener {
 	 */
 	private long intersect(SwisiComponent component1, SwisiComponent component2) {
 		// Récupération des coordonnées absolues
-		Coordinate posCompo1 = component1.getSwisiPositionOnScreen();
-		Coordinate posCompo2 = component2.getSwisiPositionOnScreen();
+		Coordinates posCompo1 = component1.getSwisiPositionOnScreen();
+		Coordinates posCompo2 = component2.getSwisiPositionOnScreen();
 		if(posCompo1 == null || posCompo2 == null) {
 			return 0;
 		}
@@ -161,7 +161,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 	 * @param component le composant à dragguer.
 	 * @param mouseClicPos la position de la souris par rapport au composant au démarrage du drag.
 	 */
-	private void pick(final SwisiDraggable component, final Coordinate mouseClicPos) {
+	private void pick(final SwisiDraggable component, final Coordinates mouseClicPos) {
 		// Vérification que l'on est pas déjà en train de dragguer un composant.
 		if(draggable != null) {
 			throw new ConcurrentDragComponentException();
@@ -176,20 +176,20 @@ public class SwisiDadManager implements SwisiMouseListener {
 		// Affichage du GlassPan maintenant pour pouvoir obtenir sa position à l'écran
 		glassPan.setVisible(true);
 		// Calcul des coordonnées du composant à dragguer par rapport au glassPan
-		Coordinate coord = coordinateRelativeToGlassPan(draggable);
+		Coordinates coord = coordinateRelativeToGlassPan(draggable);
 		int xOrigine = coord.getX() - mouseClicPos.getX();
 		int yOrigine = coord.getY() - mouseClicPos.getY();
-		draggableMouseOriginePosGlassPan = new Coordinate(xOrigine, yOrigine);
+		draggableMouseOriginePosGlassPan = new Coordinates(xOrigine, yOrigine);
 		// Placer la copy sur le GlassPan
 		graphicalCopy.moveTo(coord.getX(), coord.getY());
 		glassPan.addSwisiComponent(graphicalCopy);
 		graphicalCopy.setVisible(true);
 	}
 	
-	private Coordinate coordinateRelativeToGlassPan(SwisiComponent component) {
-		Coordinate coord = component.getSwisiPositionOnScreen();
-		Coordinate coordGlassPan = glassPan.getSwisiPositionOnScreen();
-		return Coordinate.relative(coordGlassPan, coord);
+	private Coordinates coordinateRelativeToGlassPan(SwisiComponent component) {
+		Coordinates coord = component.getSwisiPositionOnScreen();
+		Coordinates coordGlassPan = glassPan.getSwisiPositionOnScreen();
+		return Coordinates.relative(coordGlassPan, coord);
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 		// On récupère l'ancien conteneur possèdant le composant draggué
 		SwisiContainer oldContainer = draggable.getSwisiContainer();
 		// On cacul les coordonnées de drop
-		Coordinate dropCoordinate = Coordinate.relative(target.getSwisiPositionOnScreen(), graphicalCopy.getSwisiPositionOnScreen());
+		Coordinates dropCoordinate = Coordinates.relative(target.getSwisiPositionOnScreen(), graphicalCopy.getSwisiPositionOnScreen());
 		// On demande à la cible trouvée la réception du composant draggué
 		if(target.receive(draggable, dropCoordinate)) {
 			// Si la cible à bien réceptionné le composant, on supprime ce dernier de son ancien conteneur

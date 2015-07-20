@@ -18,47 +18,50 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
-package demo.swisidad.simple;
+package swisidad.swing.component;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Point;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
-import swisidad.component.SwisiTarget;
 import swisidad.component.SwisiDraggable;
-import swisidad.swing.component.SwisiJTarget;
+import swisidad.component.SwisiTarget;
 import swisidad.swing.tools.CoordinatesPointConverter;
 
-public class SimpleContainer extends SwisiJTarget {
+/**
+ * Target basique compatible avec Swing qui accepte les composants reçus par défaut.
+ */
+public abstract class SwisiJTarget extends JPanel implements SwisiTarget {
 
-	public SimpleContainer() {
-		super();
-		setPreferredSize(new Dimension(400, 600));
-	}
-	
-	@Override
-	public void addSwisiComponent(SwisiComponent component) {
-		super.add((Component) component, BorderLayout.CENTER);
-	}
-
+	/**
+	 * Ajoute l'objet droppé.
+	 * 
+	 * @param dropCoord les coordonnées de drop.
+	 * @return <code>true</code>
+	 */
 	@Override
 	public boolean receive(SwisiDraggable component, Coordinates dropCoord) {
-		addSwisiComponent(component);
-		System.out.println("drop at " + dropCoord);
+		addSwisiComponent(component, dropCoord);
 		return true;
 	}
 
 	@Override
-	public void addSwisiComponent(SwisiComponent component, Coordinates pos) {
-		Component c = ((Component) component);
-		c.setLocation(pos.getX(), pos.getY());
-		super.add(c);
+	public void removeSwisiComponent(SwisiComponent component) {
+		super.remove((Component) component);
+	}
+
+	@Override
+	public Coordinates getMouseSwisiCoordonates() {
+		Point pMouse =  super.getMousePosition();
+		return CoordinatesPointConverter.toCoordinates(pMouse);
+	}
+
+	@Override
+	public Coordinates getSwisiPositionOnScreen() {
+		Point pos = super.getLocationOnScreen();
+		return CoordinatesPointConverter.toCoordinates(pos);
 	}
 }

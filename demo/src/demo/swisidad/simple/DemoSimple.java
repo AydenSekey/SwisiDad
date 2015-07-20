@@ -24,6 +24,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import swisidad.manager.SwisiDadManager;
+import swisidad.swing.component.SwisiJGlassPane;
 
 public final class DemoSimple {
 
@@ -31,7 +32,7 @@ public final class DemoSimple {
 		SimpleFenetre fenetre = new SimpleFenetre();
 		fenetre.setLocationRelativeTo(null);
 
-		SimpleGlassPan glassPan = new SimpleGlassPan();
+		SwisiJGlassPane glassPan = new SwisiJGlassPane();
 		glassPan.setVisible(false);
 		fenetre.setGlassPane(glassPan);
 		

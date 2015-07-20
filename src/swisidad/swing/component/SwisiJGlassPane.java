@@ -18,7 +18,7 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 */
-package demo.swisidad.simple;
+package swisidad.swing.component;
 
 import java.awt.Component;
 import java.awt.Point;
@@ -30,9 +30,15 @@ import swisidad.component.SwisiComponent;
 import swisidad.component.SwisiGlassPan;
 import swisidad.swing.tools.CoordinatesPointConverter;
 
-public class SimpleGlassPan extends JPanel implements SwisiGlassPan {
+/**
+ * SwisiGlassPan basique fonctionnant avec Swing.
+ */
+public class SwisiJGlassPane extends JPanel implements SwisiGlassPan {
 
-	public SimpleGlassPan() {
+	/**
+	 * Crée un SwisiGlassPan compatible avec Swing.
+	 */
+	public SwisiJGlassPane() {
 		super();
 		setLayout(null);
 		setOpaque(false);
@@ -42,7 +48,7 @@ public class SimpleGlassPan extends JPanel implements SwisiGlassPan {
 	public void addSwisiComponent(SwisiComponent component) {
 		super.add((Component) component);
 	}
-	
+
 	@Override
 	public void addSwisiComponent(SwisiComponent component, Coordinates pos) {
 		Component c = (Component) component;
@@ -66,4 +72,5 @@ public class SimpleGlassPan extends JPanel implements SwisiGlassPan {
 		Point pos = super.getLocationOnScreen();
 		return CoordinatesPointConverter.toCoordinates(pos);
 	}
+
 }

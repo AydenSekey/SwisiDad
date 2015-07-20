@@ -1,0 +1,8 @@
+Changes for version 0.2
+-----------------------
+- Coordinate rename to Coordinates
+- add util-class to convert Point in Coordinates
+- component draggable now hidden during drag.
+
+Bugs fixed
+----------

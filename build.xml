@@ -79,6 +79,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 			<fileset dir="licence" />
 		</copy>
 		<copy file="README.md" todir="${dist.dir}" />
+		<copy file="changelog.txt" todir="${dist.dir}" />
 	</target>
 	
 	<target name="zip_dist" depends="dist" description="Crée une archive de distribution.">

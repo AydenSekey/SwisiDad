@@ -4,6 +4,7 @@ Changes for version 0.2
 - add util-class to convert Point in Coordinates
 - component draggable now hidden during drag.
 - add SwisiMouseEvent immutable implementation
+- add component adapters to Swing
 
 Bugs fixed
 ----------

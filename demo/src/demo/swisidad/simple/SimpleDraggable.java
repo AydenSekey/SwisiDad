@@ -18,6 +18,7 @@ import swisidad.component.SwisiContainer;
 import swisidad.component.SwisiDraggable;
 import swisidad.event.SwisiMouseEvent;
 import swisidad.listener.SwisiMouseListener;
+import swisidad.swing.listener.SwisiJMouseListenerAdapter;
 import swisidad.swing.tools.CoordinatesPointConverter;
 
 public class SimpleDraggable extends JPanel implements SwisiDraggable {
@@ -65,41 +66,28 @@ public class SimpleDraggable extends JPanel implements SwisiDraggable {
 		if(listener instanceof MouseListener) {
 			addMouseListener((MouseListener) listener);
 		} else {
-			addMouseListener(new MouseAdapter() {
-				
+			addMouseListener(new SwisiJMouseListenerAdapter(listener) {
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					System.out.println("released");
-					listener.mouseRelease(new SwisiMouseEventSwing(e));
+					super.mouseReleased(e);
 				}
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
 					System.out.println("pressed");
-					listener.mousePressed(new SwisiMouseEventSwing(e));
-				}
-				
-				@Override
-				public void mouseExited(MouseEvent e) {
-				}
-				
-				@Override
-				public void mouseEntered(MouseEvent e) {
-				}
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
+					super.mousePressed(e);
 				}
 			});
 		}
 		if(listener instanceof MouseMotionListener) {
 			addMouseMotionListener((MouseMotionListener) listener);
 		} else {
-			addMouseMotionListener(new MouseMotionAdapter() {
+			addMouseMotionListener(new SwisiJMouseListenerAdapter(listener) {
 				@Override
 				public void mouseDragged(MouseEvent e) {
 					System.out.println("dragged");
-					listener.mouseDragged(new SwisiMouseEventSwing(e));
+					super.mouseDragged(e);
 				}
 			});
 		}

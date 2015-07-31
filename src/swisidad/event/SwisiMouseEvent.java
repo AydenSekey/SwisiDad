@@ -22,6 +22,7 @@ package swisidad.event;
 
 import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
+import swisidad.mouse.SwisiMouseButton;
 
 /**
  * Interface de lecture des informations d'événement souris pour SwisiDad.
@@ -40,4 +41,10 @@ public interface SwisiMouseEvent {
 	 * @return la position de la souris relative au composant source.
 	 */
 	public Coordinates getMousePosition();
+	
+	/**
+	 * Donne le bouton de la souris associé à l'évennement.
+	 * @return l'identificateur du bouton de la souris ou <code>null</code> si l'événement n'est pas lié à un bouton de la souris.
+	 */
+	public SwisiMouseButton getButton();
 }

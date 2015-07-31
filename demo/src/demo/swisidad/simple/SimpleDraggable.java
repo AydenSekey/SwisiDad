@@ -100,26 +100,3 @@ public class SimpleDraggable extends JPanel implements SwisiDraggable {
 		return new Coordinates((int) p.getX(), (int) p.getY());
 	}
 }
-
-final class SwisiMouseEventSwing implements SwisiMouseEvent {
-	private final MouseEvent event;
-	
-	public SwisiMouseEventSwing(MouseEvent e) {
-		event = e;
-	}
-
-	@Override
-	public SwisiComponent getSource() {
-		Object source = event.getSource();
-		if(source instanceof SwisiComponent) {
-			return (SwisiComponent) source;
-		}
-		return null;
-	}
-
-	@Override
-	public Coordinates getMousePosition() {
-		Point p = event.getPoint();
-		return CoordinatesPointConverter.toCoordinates(p);
-	}
-}

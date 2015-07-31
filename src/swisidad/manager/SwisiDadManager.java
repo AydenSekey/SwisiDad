@@ -33,6 +33,7 @@ import swisidad.component.SwisiDraggable;
 import swisidad.event.SwisiMouseEvent;
 import swisidad.listener.SwisiMouseListener;
 import swisidad.manager.exception.ConcurrentDragComponentException;
+import swisidad.mouse.SwisiMouseButton;
 
 /**
  * Manager gérant le drag and drop.
@@ -72,20 +73,23 @@ public class SwisiDadManager implements SwisiMouseListener {
 	@Override
 	public void mousePressed(SwisiMouseEvent event) {
 		SwisiComponent component = event.getSource();
-		if(component instanceof SwisiDraggable) {
+		if(isValideButton(event.getButton()) && component instanceof SwisiDraggable) {
 			pick((SwisiDraggable) component, event.getMousePosition());
 		}
 	}
 
-
 	@Override
 	public void mouseRelease(SwisiMouseEvent event) {
-		drop();
+		if(isValideButton(event.getButton())) {
+			drop();
+		}
 	}
 
 	@Override
 	public void mouseDragged(SwisiMouseEvent event) {
-		drag(event.getMousePosition());
+		if(draggable != null) {
+			drag(event.getMousePosition());
+		}
 	}
 	
 	public SwisiGlassPan getGlassPan() {
@@ -94,6 +98,10 @@ public class SwisiDadManager implements SwisiMouseListener {
 	
 	public void setGlassPan(SwisiGlassPan glass) {
 		glassPan = glass;
+	}
+
+	protected boolean isValideButton(SwisiMouseButton button) {
+		return button == SwisiMouseButton.LEFT;
 	}
 	
 	/**

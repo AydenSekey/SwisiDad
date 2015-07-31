@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 
 import swisidad.component.SwisiComponent;
 import swisidad.event.SwisiImmutableMouseEvent;
+import swisidad.mouse.SwisiMouseButton;
 
 /**
  * Util class to convert SwisiMouseEvent to Swing MouseEvent and reverse.
@@ -40,8 +41,23 @@ public final class MouseEventConverter {
 	 * @throws ClassCastException if event source is not a SwisiComponent.
 	 */
 	public static SwisiImmutableMouseEvent toSwisiImmutableMouseEvent(MouseEvent event) {
-		if(event.getSource() instanceof SwisiComponent)
-			return new SwisiImmutableMouseEvent((SwisiComponent) event.getSource(), CoordinatesPointConverter.toCoordinates(event.getPoint()));
+		if(event.getSource() instanceof SwisiComponent) {
+			SwisiMouseButton button = null;
+			switch(event.getButton()) {
+				case MouseEvent.BUTTON1:
+					button = SwisiMouseButton.LEFT;
+					break;
+				case MouseEvent.BUTTON2:
+					button = SwisiMouseButton.MIDDLE;
+					break;
+				case MouseEvent.BUTTON3:
+					button = SwisiMouseButton.RIGHT;
+					break;
+				default:
+					break;
+			}
+			return new SwisiImmutableMouseEvent((SwisiComponent) event.getSource(), CoordinatesPointConverter.toCoordinates(event.getPoint()), button);
+		}
 		throw new ClassCastException("event source is not a SwisiComponent");
 	}
 

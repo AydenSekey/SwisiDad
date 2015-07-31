@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import swisidad.Coordinates;
 import swisidad.event.SwisiMouseEvent;
+import swisidad.mouse.SwisiMouseButton;
 import swisidad.swing.component.SwisiJGlassPane;
 
 public class MouseEventConverterTest {
@@ -36,11 +37,20 @@ public class MouseEventConverterTest {
 	@Test
 	public void testToSwisiImmutableMouseEvent() {
 		Component source = new SwisiJGlassPane();
-		MouseEvent eventSwing = new java.awt.event.MouseEvent(source, 1, 0L, 0, 1, 2, 3, 4, 1, false, 0);
+		MouseEvent eventSwing = new MouseEvent(source, 1, 0L, 0, 1, 2, 3, 4, 1, false, 1);
 
 		SwisiMouseEvent event = MouseEventConverter.toSwisiImmutableMouseEvent(eventSwing);
 		assertTrue("Source incorrecte", event.getSource() == source);
 		assertEquals("Coordonnées incorrectes", new Coordinates(1, 2), event.getMousePosition());
+		assertEquals("Bouton incorrect", SwisiMouseButton.LEFT, event.getButton());
+
+		eventSwing = new MouseEvent(source, 1, 0L, 0, 1, 2, 3, 4, 1, false, 3);
+		event = MouseEventConverter.toSwisiImmutableMouseEvent(eventSwing);
+		assertEquals("Bouton incorrect", SwisiMouseButton.RIGHT, event.getButton());
+		
+		eventSwing = new MouseEvent(source, 1, 0L, 0, 1, 2, 3, 4, 1, false, 2);
+		event = MouseEventConverter.toSwisiImmutableMouseEvent(eventSwing);
+		assertEquals("Bouton incorrect", SwisiMouseButton.MIDDLE, event.getButton());
 	}
 
 }

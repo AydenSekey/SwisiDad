@@ -22,6 +22,7 @@ package swisidad.event;
 
 import swisidad.Coordinates;
 import swisidad.component.SwisiComponent;
+import swisidad.mouse.SwisiMouseButton;
 
 /**
  * Immutable mouse event.
@@ -29,15 +30,32 @@ import swisidad.component.SwisiComponent;
 public final class SwisiImmutableMouseEvent implements SwisiMouseEvent {
 	private final SwisiComponent source;
 	private final Coordinates mousePosition;
+	private final SwisiMouseButton button;
 	
 	/**
-	 * Create mouse event.
+	 * Create mouse event without associated mouse button.
 	 * @param componentSource source of event.
 	 * @param mouseCoordinates coordinates of mouse pointer when event is thrown
 	 */
 	public SwisiImmutableMouseEvent(SwisiComponent componentSource, Coordinates mouseCoordinates) {
+		this(componentSource, mouseCoordinates, null);
+	}
+
+	/**
+	 * Create mouse event.
+	 * @param componentSource source of event.
+	 * @param mouseCoordinates coordinates of mouse pointer when event is thrown
+	 * @param mouseButton the mouse button associate with the event.
+	 */
+	public SwisiImmutableMouseEvent(SwisiComponent componentSource, Coordinates mouseCoordinates, SwisiMouseButton mouseButton) {
 		source = componentSource;
 		mousePosition = mouseCoordinates;
+		button = mouseButton;
+	}
+	
+	@Override
+	public SwisiMouseButton getButton() {
+		return button;
 	}
 	
 	@Override

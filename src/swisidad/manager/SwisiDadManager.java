@@ -33,6 +33,8 @@ import swisidad.component.SwisiDraggable;
 import swisidad.event.SwisiMouseEvent;
 import swisidad.listener.SwisiMouseListener;
 import swisidad.manager.exception.ConcurrentDragComponentException;
+import swisidad.manager.strategies.SwisiButtonStrategy;
+import swisidad.manager.strategies.SwisiLeftButtonStrategy;
 import swisidad.mouse.SwisiMouseButton;
 
 /**
@@ -44,12 +46,31 @@ public class SwisiDadManager implements SwisiMouseListener {
 	private SwisiDraggable draggable;
 	private SwisiDraggable graphicalCopy;
 	private Coordinates draggableMouseOriginePosGlassPan;
+	/* strategies */
+	private SwisiButtonStrategy buttonStrategy;
 	
+	/**
+	 * Crée un gestionnaire de drag and drop.<br>
+	 * Le drag and drop sera effecter uniquement avec le bouton gauche de la souris.
+	 */
 	public SwisiDadManager() {
+		this(new SwisiLeftButtonStrategy());
+	}
+	
+	/**
+	 * Crée un gestionnaire de drag and drop.
+	 * 
+	 * @param buttonStrategy stratégie définissant les boutons autorisé pour effectuer le drag and drop. Ne doit pas être null.
+	 * @throws NullPointerException if buttonStrategy is <code>null</code>.
+	 */
+	public SwisiDadManager(SwisiButtonStrategy buttonStrategy) {
+		if(buttonStrategy == null)
+			throw new NullPointerException("buttonStragegy can't be null");
 		targets = new HashSet<>();
 		draggable = null;
 		graphicalCopy = null;
 		draggableMouseOriginePosGlassPan = null;
+		this.buttonStrategy = buttonStrategy;
 	}
 	
 	/**
@@ -100,8 +121,8 @@ public class SwisiDadManager implements SwisiMouseListener {
 		glassPan = glass;
 	}
 
-	protected boolean isValideButton(SwisiMouseButton button) {
-		return button == SwisiMouseButton.LEFT;
+	private boolean isValideButton(SwisiMouseButton button) {
+		return buttonStrategy.valideButton(button);
 	}
 	
 	/**

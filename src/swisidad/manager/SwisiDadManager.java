@@ -46,6 +46,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 	private SwisiDraggable draggable;
 	private SwisiDraggable graphicalCopy;
 	private Coordinates draggableMouseOriginePosGlassPan;
+	private SwisiMouseButton dragButton;
 	/* strategies */
 	private SwisiButtonStrategy buttonStrategy;
 	
@@ -70,6 +71,7 @@ public class SwisiDadManager implements SwisiMouseListener {
 		draggable = null;
 		graphicalCopy = null;
 		draggableMouseOriginePosGlassPan = null;
+		dragButton = null;
 		this.buttonStrategy = buttonStrategy;
 	}
 	
@@ -95,13 +97,14 @@ public class SwisiDadManager implements SwisiMouseListener {
 	public void mousePressed(SwisiMouseEvent event) {
 		SwisiComponent component = event.getSource();
 		if(isValideButton(event.getButton()) && component instanceof SwisiDraggable) {
-			pick((SwisiDraggable) component, event.getMousePosition());
+			pick((SwisiDraggable) component, event.getMousePosition(), event.getButton());
 		}
 	}
 
 	@Override
 	public void mouseRelease(SwisiMouseEvent event) {
-		if(isValideButton(event.getButton())) {
+		SwisiMouseButton button = event.getButton();
+		if(button == dragButton) {
 			drop();
 		}
 	}
@@ -189,8 +192,9 @@ public class SwisiDadManager implements SwisiMouseListener {
 	 * 
 	 * @param component le composant à dragguer.
 	 * @param mouseClicPos la position de la souris par rapport au composant au démarrage du drag.
+	 * @param button le bouton effectant le drag.
 	 */
-	private void pick(final SwisiDraggable component, final Coordinates mouseClicPos) {
+	private void pick(final SwisiDraggable component, final Coordinates mouseClicPos, SwisiMouseButton button) {
 		// Vérification que l'on est pas déjà en train de dragguer un composant.
 		if(draggable != null) {
 			throw new ConcurrentDragComponentException();
@@ -200,6 +204,8 @@ public class SwisiDadManager implements SwisiMouseListener {
 		if(graphicalCopy == null) {
 			throw new NullPointerException("Graphical copy must not be null !");
 		}
+		// Mémorisé le button effectuant le drag
+		dragButton = button;
 		// Mémoriser le composant à dragguer
 		draggable = component;
 		// Affichage du GlassPan maintenant pour pouvoir obtenir sa position à l'écran
@@ -254,6 +260,8 @@ public class SwisiDadManager implements SwisiMouseListener {
 		draggable = null;
 		// Destruction des coordonnées relative du composant draggable par rapport au GlassPan
 		draggableMouseOriginePosGlassPan = null;
+		// destruction du button de drag
+		dragButton = null;
 	}
 	
 	/**

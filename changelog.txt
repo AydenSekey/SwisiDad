@@ -5,7 +5,8 @@ Changes for version 0.2
 - component draggable now hidden during drag.
 - add SwisiMouseEvent immutable implementation
 - add component adapters to Swing
-- restrict drag and drop to left button
+- restrict drag and drop to left button by default, strategy let configure that.
 
 Bugs fixed
 ----------
+- fixe drop when use a different button during drag.

@@ -24,18 +24,10 @@ package swisidad.component;
  * Interface pour les composants pouvant changer de visibilité.
  */
 public interface SwisiToggleVisibiliteComponent extends SwisiComponent {
-	
 	/**
 	 * Modifie la visibilité du composant.
 	 * 
 	 * @param visible <code>true</code> rend le composant visible, <code>false</code> le rend invisible.
 	 */
 	public void setVisible(boolean visible);
-
-	/**
-	 * Vérifie si le composant est visible.
-	 * 
-	 * @return <code>true</code> s'il est visible, sinon <code>false</code>
-	 */
-	public boolean isVisible();
 }

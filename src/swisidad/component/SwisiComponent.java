@@ -59,4 +59,11 @@ public interface SwisiComponent {
 	 * @return la hauteur.
 	 */
 	public int getHeight();
+
+	/**
+	 * Vérifie si le composant est visible.
+	 * 
+	 * @return <code>true</code> s'il est visible, sinon <code>false</code>
+	 */
+	public boolean isVisible();
 }

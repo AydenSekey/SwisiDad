@@ -6,6 +6,7 @@ Changes for version 0.2
 - add SwisiMouseEvent immutable implementation
 - add component adapters to Swing
 - restrict drag and drop to left button by default, strategy let configure that.
+- SwisiDadManager is now an interface, implementation renamed to SwisiDadClassicManager.
 
 Bugs fixed
 ----------

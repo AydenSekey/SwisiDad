@@ -23,6 +23,7 @@ package demo.swisidad.simple;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+import swisidad.manager.SwisiDadClassicManager;
 import swisidad.manager.SwisiDadManager;
 import swisidad.swing.component.SwisiJGlassPane;
 
@@ -44,7 +45,7 @@ public final class DemoSimple {
 		SimpleDraggable draggable = new SimpleDraggable();
 		target1.addSwisiComponent(draggable);
 		
-		final SwisiDadManager manager = new SwisiDadManager();
+		final SwisiDadManager manager = new SwisiDadClassicManager();
 		manager.addTarget(target1);
 		manager.addTarget(target2);
 		manager.setGlassPan(glassPan);

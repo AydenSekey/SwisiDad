@@ -20,7 +20,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <project name="SwisiDad" default="dist" >
 	<property name="app.name" value="swisidad" />
-	<property name="app.version" value="0.1" />
+	<property name="app.version" value="0.2" />
 	<property name="src.dir" value="src" />
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/classes" />
@@ -49,7 +49,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 	</target>
 
 	<target name="jar" depends="compile" description="Crée l'archive JAR" >
-		<jar destfile="${jar.dir}/${app.name}.jar" basedir="${classes.dir}" >
+		<jar destfile="${jar.dir}/${app.name}_${app.version}.jar" basedir="${classes.dir}" >
 			<manifest>
 				<attribute name="Implementation-Title" value="${app.name}"/>
 				<attribute name="Implementation-Version" value="${app.version}"/>
@@ -74,7 +74,7 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 	</target>
 	
 	<target name="dist" depends="clean_dist,jar" description="Regroupe les éléments pour la distribution du projet.">
-		<copy file="${jar.dir}/${app.name}.jar" todir="${dist.dir}" />
+		<copy file="${jar.dir}/${app.name}_${app.version}.jar" todir="${dist.dir}" />
 		<copy todir="${dist.dir}/licence" >
 			<fileset dir="licence" />
 		</copy>
@@ -139,11 +139,11 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 	</target>
 
 	<target name="jar_demo" depends="compile_demo,jar" description="Crée l'archive JAR des démos" >
-		<jar destfile="${demo.jar.dir}/${app.name}_demos.jar" basedir="${demo.classes.dir}" >
+		<jar destfile="${demo.jar.dir}/${app.name}_demos_${app.version}.jar" basedir="${demo.classes.dir}" >
 			<manifest>
 				<attribute name="Implementation-Title" value="${app.name}_demos"/>
 				<attribute name="Implementation-Version" value="${app.version}"/>
-				<attribute name="Class-Path" value="${app.name}.jar" />
+				<attribute name="Class-Path" value="${app.name}_${app.version}.jar" />
 				<attribute name="Main-Class" value="${demo.main-class}" />
 			</manifest>
 			<include name="**/*.class" />

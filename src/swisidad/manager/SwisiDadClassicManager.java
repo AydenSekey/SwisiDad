@@ -34,6 +34,8 @@ import swisidad.event.SwisiMouseEvent;
 import swisidad.listener.SwisiMouseListener;
 import swisidad.manager.exception.ConcurrentDragComponentException;
 import swisidad.manager.strategies.SwisiButtonStrategy;
+import swisidad.manager.strategies.SwisiEffectComponentStrategy;
+import swisidad.manager.strategies.SwisiInvisibleEffectStrategy;
 import swisidad.manager.strategies.SwisiLeftButtonStrategy;
 import swisidad.mouse.SwisiMouseButton;
 
@@ -48,14 +50,15 @@ public class SwisiDadClassicManager implements SwisiDadManager, SwisiMouseListen
 	private Coordinates draggableMouseOriginePosGlassPan;
 	private SwisiMouseButton dragButton;
 	/* strategies */
-	private SwisiButtonStrategy buttonStrategy;
+	private final SwisiButtonStrategy buttonStrategy;
+	private final SwisiEffectComponentStrategy<SwisiDraggable> startEndDraggableEffectStrategy;
 	
 	/**
 	 * Crée un gestionnaire de drag and drop.<br>
 	 * Le drag and drop sera effecter uniquement avec le bouton gauche de la souris.
 	 */
 	public SwisiDadClassicManager() {
-		this(new SwisiLeftButtonStrategy());
+		this(new SwisiLeftButtonStrategy(), new SwisiInvisibleEffectStrategy<SwisiDraggable>());
 	}
 	
 	/**
@@ -65,14 +68,28 @@ public class SwisiDadClassicManager implements SwisiDadManager, SwisiMouseListen
 	 * @throws NullPointerException if buttonStrategy is <code>null</code>.
 	 */
 	public SwisiDadClassicManager(SwisiButtonStrategy buttonStrategy) {
+		this(buttonStrategy, new SwisiInvisibleEffectStrategy<SwisiDraggable>());
+	}
+	
+	/**
+	 * Crée un gestionnaire de drag and drop.
+	 * 
+	 * @param buttonStrategy stratégie définissant les boutons autorisé pour effectuer le drag and drop. Ne doit pas être null.
+	 * @param effectStrategy stratégie définissant l'effet à apppliquer au composant à dragguer au début de drag.
+	 * @throws NullPointerException if buttonStrategy or effectStrategy is <code>null</code>.
+	 */
+	public SwisiDadClassicManager(SwisiButtonStrategy buttonStrategy, SwisiEffectComponentStrategy<SwisiDraggable> effectStrategy) {
 		if(buttonStrategy == null)
 			throw new NullPointerException("buttonStragegy can't be null");
+		if(effectStrategy == null)
+			throw new NullPointerException("effectStrategy can't be null");
 		targets = new HashSet<>();
 		draggable = null;
 		graphicalCopy = null;
 		draggableMouseOriginePosGlassPan = null;
 		dragButton = null;
 		this.buttonStrategy = buttonStrategy;
+		this.startEndDraggableEffectStrategy = effectStrategy;
 	}
 	
 	/**
@@ -219,7 +236,8 @@ public class SwisiDadClassicManager implements SwisiDadManager, SwisiMouseListen
 		int xOrigine = coord.getX() - mouseClicPos.getX();
 		int yOrigine = coord.getY() - mouseClicPos.getY();
 		draggableMouseOriginePosGlassPan = new Coordinates(xOrigine, yOrigine);
-		draggable.setVisible(false);
+		// Appliquer l'effet de début de drag
+		startEndDraggableEffectStrategy.applyEffect(draggable);
 		// Placer la copy sur le GlassPan
 		graphicalCopy.moveTo(coord.getX(), coord.getY());
 		glassPan.addSwisiComponent(graphicalCopy);
@@ -248,8 +266,9 @@ public class SwisiDadClassicManager implements SwisiDadManager, SwisiMouseListen
 			glassPan.removeSwisiComponent(graphicalCopy);
 			// Cacher le GlassPan
 			glassPan.setVisible(false);
-			// Rendre le vrai composant de nouveau visible
-			draggable.setVisible(true);
+			// Annuler l'effet de début de drag
+			startEndDraggableEffectStrategy.applyReverseEffect(draggable);
+
 			finalizeDrop();
 		}
 	}

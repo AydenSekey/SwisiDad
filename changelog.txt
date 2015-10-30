@@ -1,14 +1,5 @@
-Changes for version 0.2
+Changes for version 0.3
 -----------------------
-- Coordinate rename to Coordinates
-- add util-class to convert Point in Coordinates
-- component draggable now hidden during drag.
-- add SwisiMouseEvent immutable implementation
-- add component adapters to Swing
-- restrict drag and drop to left button by default, strategy let configure that.
-- SwisiDadManager is now an interface, implementation renamed to SwisiDadClassicManager.
-- by default original component is hide during drag, strategy let change that.
 
 Bugs fixed
 ----------
-- fixe drop when use a different button during drag.

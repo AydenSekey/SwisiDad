@@ -78,7 +78,6 @@ along with SwisiDad.  If not, see <http://www.gnu.org/licenses/>.
 		<copy todir="${dist.dir}/licence" >
 			<fileset dir="licence" />
 		</copy>
-		<copy file="README.md" todir="${dist.dir}" />
 		<copy file="changelog.txt" todir="${dist.dir}" />
 	</target>
 	

@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ## Construction à partir des sources
 
 Un script ant situé à la racine du projet permet de construire facilement la bibliothèque.
-La commande suivante créera une archive zip contenant le jar, la licence et ce fichier README dans le répertoire dist :
+La commande suivante créera une archive zip contenant le jar, la licence et le fichier changelog.txt dans le répertoire dist :
 $ ant zip_dist
 
 ## Installation
